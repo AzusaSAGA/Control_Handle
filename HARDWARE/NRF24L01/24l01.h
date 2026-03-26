@@ -60,6 +60,10 @@ extern u8 tmp_buf[33];
 #define TX_PLOAD_WIDTH  32  	//32字节的用户数据宽度
 #define RX_PLOAD_WIDTH  32  	//32字节的用户数据宽度
 									   	   
+// 新增下面两个宏定义：
+#define FEATURE         0x1D  // 特性寄存器
+#define DYNPD           0x1C  // 动态负载长度使能寄存器
+
 
 void NRF24L01_Init(void);//初始化
 void NRF24L01_RX_Mode(void);//配置为接收模式

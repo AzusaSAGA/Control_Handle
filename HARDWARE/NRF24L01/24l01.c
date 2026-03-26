@@ -205,8 +205,15 @@ void NRF24L01_TX_Mode(void)
   NRF24L01_Write_Reg(NRF_WRITE_REG+RF_CH,0);       //设置RF通道为40
   NRF24L01_Write_Reg(NRF_WRITE_REG+RF_SETUP,0x0f);  //设置TX发射参数,0db增益,2Mbps,低噪声增益开启   
   NRF24L01_Write_Reg(NRF_WRITE_REG+CONFIG,0x0e);    //配置基本工作模式的参数;PWR_UP,EN_CRC,16BIT_CRC,接收模式,开启所有中断
-	NRF24L01_Write_Reg(NRF_WRITE_REG+RX_PW_P0,RX_PLOAD_WIDTH);//选择通道0的有效数据宽度
-	NRF24L01_CE=1;//CE为高,10us后启动发送
+  NRF24L01_Write_Reg(NRF_WRITE_REG+RX_PW_P0,RX_PLOAD_WIDTH);//选择通道0的有效数据宽度
+  // ========================================================
+  // 新增：使能动态负载(EN_DPL)和带负载应答(EN_ACK_PAY)
+  // 这是手柄能接收车体顺带传回来的 Jetson 应答数据的关键！
+  // ========================================================
+  NRF24L01_Write_Reg(NRF_WRITE_REG + FEATURE, 0x06); 
+  NRF24L01_Write_Reg(NRF_WRITE_REG + DYNPD, 0x01);   
+
+	NRF24L01_CE=1; //CE为高,10us后启动发送
 }
 
 
